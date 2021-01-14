@@ -23,6 +23,9 @@
 #' @param in_sample a numerical value that sets the size of the out-of-sample window size of the
 #' walk-forward training.
 #' @param slid a numerical value that sets how many time-steps into the future the price should be calculated.
+#' @param smooth a character string indicating the kind of smoother required that is used to smooth the indicator
+#' values; '3RS3R', '3RSS', '3RSR', '3R', '3' and 'S' are possible. Default is 3R.
+#' More information on the \code{\link{smooth}} function documentation
 #' @param algorithm a string containing the algorithm type to calculate the neural network.
 #' The following types are possible:
 #' \itemize{
@@ -54,6 +57,7 @@
 #' @export
 #'
 #' @import neuralnet
+#' @import stats
 #'
 #' @examples
 #' walkForwardNeuralnet(symbols, trad_col=1, neurons_int = c(3,5), in_sample = 700, out_sample = 60, slid = 4)
@@ -61,8 +65,8 @@
 
 
 walkForwardNeuralnet <- function(symbols, trad_col, neurons_int, in_sample, out_sample, slid = 3, algorithm = 'rprop+',
-                                 stepmax = 1e+05, threshold = 0.5, rep = 2, learningrate.limit = NULL,
-                                 learningrate.factor = list(minus = 0.5, plus = 1.2),learningrate = NULL) {
+                                 smooth = '3R', stepmax = 1e+05, threshold = 0.5, rep = 2, learningrate.limit = NULL,
+                                 learningrate.factor = list(minus = 0.5, plus = 1.2), learningrate = NULL) {
 
 
   symbols <- na.omit(symbols)
@@ -143,10 +147,18 @@ walkForwardNeuralnet <- function(symbols, trad_col, neurons_int, in_sample, out_
 
   }
 
+
   # Calculating the indicator
   for(i in 1:length(results[,1])) {
     results$indicator[i] <- ((results$forecast[i]-results[i,1])/results[i,1]) * 100
   }
+
+
+  # Smoothing the indicator values
+  if (!is.null(smooth)) {
+    results$indicator <- smooth(results$indicator, kind = smooth)
+  }
+
 
   return(results)
 

@@ -21,8 +21,10 @@ knitr::opts_chunk$set(
 The goal of NeuralNetIndicator is to provide functionality to calculate a financial trading indicator based
 on artificial neural network price predictions. The model bases price forecasts on reference stock prices of the same
 sector. The focus is on the utilization of lag and time delays in price movements of similar stocks in order to 
-profitably forecast price changes. The information contained in the indicator values and suggestions of how to take
-advantage of those calculations can be found under the subheadings *Indicator Values* and 
+profitably forecast price changes. With a lot of customizable parameters for the network training algorithm, training
+windows sizes and a range of Tukey's smoothing functionalities, the indicator function offers a useful tool to test 
+various parameter settings for their profitability. The information contained in the indicator values and usage
+suggestions of the indicator functions can be found under the subheadings *Indicator Values* and 
 *Optimization and Backtesting* at the end of this document. 
 <br/><br/>
 Along the walk-forward trained model with various training-algorithm 
@@ -45,9 +47,8 @@ devtools::install_github("n1tecki/NeuralNetIndicator")
 
 This is an example which shows you how to access historical data and train the forecast-model:
 
-```{r example}
+```{r example, message = FALSE, warning = FALSE}
 library(NeuralNetIndicator)
-## basic example code
 ```
 
 ### getReferenceSymbols
@@ -57,8 +58,10 @@ Along the stock prices of interest, reference assets (preferably from the same (
 should be listed with their stock symbols. In this case a time span of approximately 20 years will be used.
 
 ```{r message = FALSE, warning = FALSE}
+## basic example code
 symbols <- getReferenceSymbols(x = c('XOM','BP','COP','OXY','PXD','TOT','VLO'), start_date = '2000-10-10', 
                                end_date = '2020-10-10')
+
 head(symbols, 4)
 ```
 
@@ -67,13 +70,15 @@ head(symbols, 4)
 The xts object *symbols* of closing price of all stocks is used as the input for the **walkForwardNeuralnet**. 
 The traded asset at focus is *XOM*, hence the first column is selected for the parameter *trad_col*. 
 With a in-sample window of 700 days and out-of-sample of 60, the parameter *slid* - number of days of how far into 
-the future the forecast should be calculated - is selected to be 4.\
+the future the forecast should be calculated - is selected to be 4. The indicator values in this example will not be
+smoothed, hence the smoothing parameter is left as default NULL.\
 The closing prices of *XOM*, price predictions and indicator value for each day are exported into the xts object 
 *indicator*.
 
 ```{r message = FALSE}
 indicator <- walkForwardNeuralnet(symbols, trad_col=1, neurons_int = c(3,5), 
                                   in_sample = 700, out_sample = 60, slid = 4)
+
 head(indicator, 4)
 ```
 
@@ -87,10 +92,11 @@ received *indicator* object are passed on, along the stock code of the correspon
 indicatorChart(indicator$indicator, symbol = 'XOM', zoom = '2018-07-30::2019-07-01')
 ```
 
+<br/><br/>
 It is also possible just to plot the indicator itself to visualize the values.
 
 ```{r message = FALSE, echo = TRUE}
-indicatorChart(indicator$indicator, zoom = '2018-07-30::2019-07-01')
+indicatorChart(indicator$indicator, zoom = '2017-07-27::2018-10-01')
 ```
 
 ## Indicator Values
@@ -98,8 +104,8 @@ The oscillating values of the indicator are the percentage difference between th
 the price forecast for *slid* days ahead calculated by the neural network.\
 For example, an indicator value of 1.4
 means that the neural network estimates a 1.4% increase in price in *slid* days. The same goes for negative values -
-when the indicator shows a value of -2.3, the forecast is that the price will fall 2.3%.\
-<br/><br/>
+when the indicator shows a value of -2.3, the forecast is that the price will fall 2.3%.
+<br/><br/> 
 Based on those values buy or sell positions can be generated. For example if the indicator reaches a value of 2, a long position is entered; when the value is above 3, the long position is increased. 
 
 ## Optimization and Backtesting

@@ -12,6 +12,7 @@ walkForwardNeuralnet(
   out_sample,
   slid = 3,
   algorithm = "rprop+",
+  smooth = "3R",
   stepmax = 1e+05,
   threshold = 0.5,
   rep = 2,
@@ -48,6 +49,10 @@ The following types are possible:
 'backprop' refers to backpropagation, 'rprop+' and 'rprop-' refer to the resilient backpropagation
 with and without weight backtracking, while 'sag' and 'slr' induce the usage of the modified globally
 convergent algorithm (grprop).}
+
+\item{smooth}{a character string indicating the kind of smoother required that is used to smooth the indicator
+values; '3RS3R', '3RSS', '3RSR', '3R', '3' and 'S' are possible. Default is 3R.
+More information on the \code{\link{smooth}} function documentation}
 
 \item{stepmax}{the maximum steps for the training of the neural network. Reaching this maximum leads
 to a stop of the neural network's training process.}
