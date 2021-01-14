@@ -18,3 +18,5 @@ Imports:
     neuralnet,
     xts,
     zoo
+URL: https://github.com/n1tecki/NeuralNetIndicator
+BugReports: https://github.com/n1tecki/NeuralNetIndicator/issues
