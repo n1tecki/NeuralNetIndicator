@@ -119,8 +119,7 @@ days ahead calculated by the neural network.
 For example, an indicator value of 1.4 means that the neural network
 estimates a 1.4% increase in price in *slid* days. The same goes for
 negative values - when the indicator shows a value of -2.3, the forecast
-is that the price will fall 2.3%.  
-<br/><br/> Based on those values buy or sell positions can be generated.
+is that the price will fall 2.3%. <br/><br/> Based on those values buy or sell positions can be generated.
 For example if the indicator reaches a value of 2, a long position is
 entered; when the value is above 3, the long position is increased.
 
