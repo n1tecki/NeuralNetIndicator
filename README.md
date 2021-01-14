@@ -56,8 +56,8 @@ will be used.
 
 ``` r
 ## basic example code
-symbols <- getReferenceSymbols(x = c('XOM','BP','COP','OXY','PXD','TOT','VLO'), start_date = '2000-10-10', 
-                               end_date = '2020-10-10')
+symbols <- getReferenceSymbols(x = c('XOM','BP','COP','OXY','PXD','TOT','VLO'), 
+                               start_date = '2000-10-10', end_date = '2020-10-10')
                                
 head(symbols, 4)
 #>            XOM.Close BP.Close COP.Close OXY.Close PXD.Close TOT.Close VLO.Close
