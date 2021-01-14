@@ -1,0 +1,20 @@
+Package: NeuralNetIndicator
+Type: Package
+Title: Osillating Trading Indicator based on Deep Neural Network
+Version: 0.1.0
+Author: Mariusz Nitecki <mariusz.nitecki@aol.com>
+Maintainer: Mariusz Nitecki <mariusz.nitecki@aol.com>
+Description: Create an oscillating trading indicator based on price forecasts
+    calculated by a walk-forward artificial neural network trained with reference asset price movements. 
+Depends: R(>= 3.2)
+import: neuralnet, quantmod, xts, zoo, FinancialInstrument
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Imports: 
+    FinancialInstrument,
+    quantmod,
+    neuralnet,
+    xts,
+    zoo
