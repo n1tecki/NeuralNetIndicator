@@ -22,8 +22,8 @@ yyyy-mm::yyyy-mm, yyyy::yyyy or any combination of those versions.}
 Tool to create financial charts of indicators and stock price data.
 }
 \examples{
-indicatorPlot(indicator$indicator)
+indicatorChart(indicator$indicator)
 indicatorChart(indicator$indicator, symbol = 'XOM', zoom = '2018-07-01::2019-07-30')
-indicatorPlot(indicator$indicator, zoom = '2018-07-01::2019-07-30')
+indicatorChart(indicator$indicator, zoom = '2018-07-01::2019-07-30')
 indicatorChart(indicator$indicator, symbol = 'XOM')
 }

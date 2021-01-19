@@ -15,9 +15,9 @@
 #'
 #' @import quantmod
 #'
-#' @examples indicatorPlot(indicator$indicator)
+#' @examples indicatorChart(indicator$indicator)
 #' indicatorChart(indicator$indicator, symbol = 'XOM', zoom = '2018-07-01::2019-07-30')
-#' indicatorPlot(indicator$indicator, zoom = '2018-07-01::2019-07-30')
+#' indicatorChart(indicator$indicator, zoom = '2018-07-01::2019-07-30')
 #' indicatorChart(indicator$indicator, symbol = 'XOM')
 
 indicatorChart <- function(indicator, symbol=NULL, zoom=NULL) {
